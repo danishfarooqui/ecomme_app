@@ -19,6 +19,9 @@ class CartService {
     return await _repository.saveLocal('carts', product.toMap());
   }
 
+  deleteItem(id) async{
+      return await _repository.deleteLocal('carts', 'productId', id);
+  }
   getCartItems() async {
     return await _repository.getAllLocal('carts');
   }

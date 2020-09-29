@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:ecommeapp/helpers/side_drawer_navigation.dart';
 import 'package:ecommeapp/models/category.dart';
 import 'package:ecommeapp/models/product.dart';
 import 'package:ecommeapp/screens/cart_screen.dart';
@@ -126,6 +127,7 @@ class _HomeScreenSate extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      drawer: SideDrawerNavigation(),
       appBar: AppBar(
         title: Text("Mobi Genius"),
         backgroundColor: Colors.redAccent,

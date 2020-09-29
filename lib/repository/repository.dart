@@ -47,6 +47,10 @@ class Repository {
         where: '$columnName =?', whereArgs: [data['productId']]);
   }
 
+  deleteLocal(table,columnName,data) async{
+    var conn = await database;
+    return await conn.delete(table,where: '$columnName=?',whereArgs: [data]);
+  }
   getLocalByCondition(table, columnName, conditionalValue) async {
     var conn = await database;
     return await conn.rawQuery(

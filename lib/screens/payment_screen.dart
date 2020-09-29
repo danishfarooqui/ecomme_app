@@ -4,6 +4,7 @@ import 'dart:convert';
 import 'package:ecommeapp/models/Payment.dart';
 import 'package:ecommeapp/models/product.dart';
 import 'package:ecommeapp/screens/home_screen.dart';
+import 'package:ecommeapp/services/cart_service.dart';
 import 'package:ecommeapp/services/payment_service.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -38,8 +39,12 @@ class _PaymentScreenState extends State<PaymentScreen> {
     PaymentService _paymentService = PaymentService();
     var paymentData = await _paymentService.makePayment(payment);
     var result = json.decode(paymentData.body);
-    print(paymentData.body);
+    print(result);
     if(result['result'] == true){
+      CartService _cartService = CartService();
+      this.widget.cartItems.forEach((cartItem) {
+        _cartService.deleteItem(cartItem);
+      });
         _showPaymentSuccessMessage(context);
         Timer(Duration(seconds: 2),(){
           Navigator.pop(context);
@@ -173,6 +178,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
                 payment.expiryYear = _expiryYear.text;
                 payment.cvcNumber = _cvcNumber.text;
                 payment.cartItems = this.widget.cartItems;
+                print(payment.toJson());
                 _makePayment(context,payment);
               },
               child: Text(
