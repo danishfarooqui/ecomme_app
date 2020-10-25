@@ -5,6 +5,7 @@ import 'dart:convert';
 import 'package:ecommeapp/models/product.dart';
 import 'package:ecommeapp/models/user.dart';
 import 'package:ecommeapp/screens/checkout_screen.dart';
+import 'package:ecommeapp/screens/home_screen.dart';
 import 'package:ecommeapp/screens/registeration_screen.dart';
 import 'package:ecommeapp/services/user_service.dart';
 import 'package:flutter/material.dart';
@@ -13,7 +14,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 class LoginScreen extends StatefulWidget{
   final List<Product> cartItems;
 
-  LoginScreen(this.cartItems);
+  LoginScreen({this.cartItems});
 
   @override
   State<StatefulWidget> createState() {
@@ -28,6 +29,20 @@ class _LoginScreenState extends State<LoginScreen>{
   final email = TextEditingController();
   final password = TextEditingController();
 
+
+  @override
+  void initState() {
+    super.initState();
+    _setSharedPrefs();
+  }
+
+  _setSharedPrefs() async{
+    SharedPreferences _prefs = await SharedPreferences.getInstance();
+    _prefs.setInt('userId', 0);
+    _prefs.setString('userName', '');
+    _prefs.setString('userEmail', '');
+  }
+
   _login(BuildContext context,User user) async{
     var userService = UserService();
     var registeredUser = await userService.login(user);
@@ -37,7 +52,13 @@ class _LoginScreenState extends State<LoginScreen>{
       _prefs.setInt('userId', result['user']['id']);
       _prefs.setString('username', result['user']['name']);
       _prefs.setString('userEmail', result['user']['email']);
-      Navigator.push(context, MaterialPageRoute(builder: (context)=>CheckoutScreen(cartItems: this.widget.cartItems,)));
+
+      if(this.widget.cartItems !=null && this.widget.cartItems.length > 0){
+        Navigator.push(context, MaterialPageRoute(builder: (context)=>CheckoutScreen(cartItems: this.widget.cartItems,)));
+      }else{
+        Navigator.push(context, MaterialPageRoute(builder: (context)=>HomeScreen()));
+      }
+
     }
     else{
       _showSnackMessage(Text('Filed to login!'));

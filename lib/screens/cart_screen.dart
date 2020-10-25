@@ -44,7 +44,7 @@ class _CartScreenState extends State<CartScreen>{
       Navigator.push(context, MaterialPageRoute(builder: (context)=>CheckoutScreen(cartItems: this.widget.cartItems,)));
     }
     else{
-      Navigator.push(this.context, MaterialPageRoute(builder: (context)=>LoginScreen(cartItems)));
+      Navigator.push(this.context, MaterialPageRoute(builder: (context)=>LoginScreen(cartItems:cartItems)));
     }
   }
 

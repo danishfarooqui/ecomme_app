@@ -28,7 +28,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
     var _result = json.decode(_shipping.body);
 
     if(_result['result'] == true){
-     Navigator.push(context, MaterialPageRoute(builder: (context)=>  PaymentScreen(this.widget.cartItems)));
+     Navigator.push(context, MaterialPageRoute(builder: (context)=>  PaymentScreen(cartItems: this.widget.cartItems)));
     }
   }
 

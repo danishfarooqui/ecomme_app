@@ -10,9 +10,9 @@ import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class PaymentScreen extends StatefulWidget {
+  final String paymentType;
   final List<Product> cartItems;
-
-  PaymentScreen(this.cartItems);
+  PaymentScreen({this.paymentType,this.cartItems});
 
   @override
   State<StatefulWidget> createState() {

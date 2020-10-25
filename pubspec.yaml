@@ -36,6 +36,7 @@ dependencies:
   path_provider: ^1.6.14
   shared_preferences: ^0.5.10
   date_field: ^0.3.2
+  font_awesome_flutter: ^8.10.0
 
 dev_dependencies:
   flutter_test:

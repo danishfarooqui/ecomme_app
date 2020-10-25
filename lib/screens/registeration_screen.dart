@@ -139,7 +139,7 @@ class _RegisterationScreenState extends State<RegisterationScreen> {
                           context,
                           MaterialPageRoute(
                               builder: (context) =>
-                                  LoginScreen(this.widget.cartItems)));
+                                  LoginScreen()));
                     },
                     child: FittedBox(child: Text('Log in to your account')),
                   ),
