@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:ecommeapp/models/product.dart';
 import 'package:ecommeapp/models/shipping.dart';
+import 'package:ecommeapp/screens/choose_payment_method.dart';
 import 'package:ecommeapp/screens/payment_screen.dart';
 import 'package:ecommeapp/services/shipping_address.dart';
 import 'package:flutter/material.dart';
@@ -28,7 +29,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
     var _result = json.decode(_shipping.body);
 
     if(_result['result'] == true){
-     Navigator.push(context, MaterialPageRoute(builder: (context)=>  PaymentScreen(cartItems: this.widget.cartItems)));
+     Navigator.push(context, MaterialPageRoute(builder: (context)=>  ChoosePaymentOption(cartItems: this.widget.cartItems)));
     }
   }
 

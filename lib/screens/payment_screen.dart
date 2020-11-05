@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:convert';
 
 import 'package:ecommeapp/models/Payment.dart';
+import 'package:ecommeapp/models/order.dart';
 import 'package:ecommeapp/models/product.dart';
 import 'package:ecommeapp/screens/home_screen.dart';
 import 'package:ecommeapp/services/cart_service.dart';
@@ -178,6 +179,8 @@ class _PaymentScreenState extends State<PaymentScreen> {
                 payment.expiryYear = _expiryYear.text;
                 payment.cvcNumber = _cvcNumber.text;
                 payment.cartItems = this.widget.cartItems;
+                payment.order = Order();
+                payment.order.paymentType = this.widget.paymentType;
                 print(payment.toJson());
                 _makePayment(context,payment);
               },

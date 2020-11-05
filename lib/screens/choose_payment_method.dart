@@ -28,20 +28,21 @@ class ChoosePaymentOption extends StatefulWidget{
 class _ChoosePaymentOptionState extends State<ChoosePaymentOption>{
   var _selectPaymentOption = 'Card';
 
-  _makePayment(BuildContext context, Payment payment) async{
+   _makePayment(BuildContext context, Payment payment) async {
     PaymentService _paymentService = PaymentService();
     var paymentData = await _paymentService.makePayment(payment);
     var result = json.decode(paymentData.body);
     print(result);
-    if(result['result'] == true){
+    if (result['result'] == true) {
       CartService _cartService = CartService();
-      this.widget.cartItems.forEach((cartItem) {
+      this.widget.cartItems.forEach((cartItem){
         _cartService.deleteItem(cartItem);
       });
       _showPaymentSuccessMessage(context);
-      Timer(Duration(seconds: 2),(){
+      Timer(Duration(seconds: 2), () {
         Navigator.pop(context);
-        Navigator.push(context, MaterialPageRoute(builder: (context)=> HomeScreen()));
+        Navigator.push(
+            context, MaterialPageRoute(builder: (context) => HomeScreen()));
       });
     }
   }
@@ -128,6 +129,7 @@ class _ChoosePaymentOptionState extends State<ChoosePaymentOption>{
               shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(7)),
                 color: Colors.redAccent,
                 onPressed: () async{
+                print(_selectPaymentOption);
                 if(_selectPaymentOption == 'Card'){
                   Navigator.push(context,
                       MaterialPageRoute(builder: (context)=> PaymentScreen(
@@ -135,13 +137,13 @@ class _ChoosePaymentOptionState extends State<ChoosePaymentOption>{
                       cartItems: this.widget.cartItems)));
                 }
                 else{
-                  SharedPreferences _prefs = await SharedPreferences.getInstance();
-                  var payment = Payment();
-                  payment.userId = _prefs.getInt('userId');
-                  payment.cartItems = this.widget.cartItems;
-                  payment.order = Order();
-                  payment.order.paymentType = _selectPaymentOption;
-                  _makePayment(context, payment);
+                    SharedPreferences _prefs = await SharedPreferences.getInstance();
+                    var payment = Payment();
+                    payment.userId = _prefs.getInt('userId');
+                    payment.cartItems = this.widget.cartItems;
+                    payment.order = Order();
+                    payment.order.paymentType = _selectPaymentOption;
+                    _makePayment(context, payment);
                 }
                 },
                 child: Text('Continue',style: TextStyle(color: Colors.white),)),),
